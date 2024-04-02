@@ -16,7 +16,7 @@ namespace UnitBrains.Player
         private bool _overheated;
         private List<Vector2Int> _currentTargets = new List<Vector2Int>();
         private static int _unitCounter = 0;
-        private int _unitNumber;
+        private int _unitNumber=_unitCounter++;
         private const int MaxTargets = 3;
 
 
@@ -59,24 +59,25 @@ namespace UnitBrains.Player
 
         protected override List<Vector2Int> SelectTargets()
         {
+            List<Vector2Int> result = new List<Vector2Int>();
             _currentTargets.Clear();
             _currentTargets.AddRange(GetAllTargets());
 
             if (_currentTargets.Count == 0)
             {
-                _currentTargets.Add(runtimeModel.RoMap.Bases[IsPlayerUnitBrain ? RuntimeModel.BotPlayerID : RuntimeModel.PlayerID]);
+                _currentTargets.Add(runtimeModel.RoMap.Bases[IsPlayerUnitBrain ? RuntimeModel.BotPlayerId : RuntimeModel.PlayerId]);
             }
 
-            SortTargetsByDistanceToBase();
+            SortByDistanceToOwnBase(_currentTargets);
 
             Vector2Int targetPosition = DetermineTargetPosition();
 
             if (IsTargetInRange(targetPosition))
             {
-                return new List<Vector2Int> { targetPosition };
+               result.Add(targetPosition);
             }
 
-            return new List<Vector2Int>();
+            return result;
         }
 
         private void SortTargetsByDistanceToBase()
@@ -91,8 +92,8 @@ namespace UnitBrains.Player
 
         private Vector2Int DetermineTargetPosition()
         {
-            _unitNumber = _unitCounter++;
-            int targetIndex = _unitNumber % Math.Min(MaxTargets, _currentTargets.Count);
+            int targetIndex = _unitNumber % MaxTargets;
+            int bestTarget = Math.Min(targetIndex, _currentTargets.Count - 1);
             return _currentTargets[targetIndex];
         }
 
