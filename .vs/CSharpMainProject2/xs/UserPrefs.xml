@@ -12,16 +12,18 @@
       <File FileName="Assets/Scripts/Model/Runtime/Projectiles/BaseProjectile.cs" />
       <File FileName="Assets/Scripts/Model/Runtime/Projectiles/ProjectileType.cs" />
       <File FileName="Assets/Scripts/Controller/LevelController.cs" />
-      <File FileName="Assets/Scripts/UnitBrains/Player/SecondUnitBrain.cs" Line="14" Column="12" />
-      <File FileName="Assets/Scripts/UnitBrains/Player/NewClass.cs" Line="63" Column="1" />
-      <File FileName="Assets/Resources/PlayerUnits/PlayerUnit3.prefab" Line="70" Column="15" />
+      <File FileName="Assets/Scripts/UnitBrains/Player/SecondUnitBrain.cs" Line="57" Column="10" />
+      <File FileName="Assets/Resources/PlayerUnits/PlayerUnit3.prefab" />
       <File FileName="Assets/Scripts/UnitBrains/Player/DefaultPlayerUnitBrain.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/UnitBrains/BaseUnitBrain.cs" Line="187" Column="36" />
+      <File FileName="Assets/Scripts/UnitBrains/BaseUnitBrain.cs" Line="1" Column="1" />
+      <File FileName="Assets/Resources/PlayerUnits/PlayerUnit1.prefab" />
+      <File FileName="Assets/Scripts/UnitBrains/Player/ThirdUnitBrain.cs" Line="52" Column="52" />
+      <File FileName="Assets/Scripts/UnitBrains/UnitBrainProvider.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="CSharpMainProject2" expanded="True">
+          <Node name="CSharpMainProject2">
             <Node name="Assets" expanded="True">
               <Node name="Resources" expanded="True">
                 <Node name="PlayerUnits" expanded="True" />
@@ -34,7 +36,9 @@
                   </Node>
                 </Node>
                 <Node name="UnitBrains" expanded="True">
-                  <Node name="Player" expanded="True" />
+                  <Node name="Player" expanded="True">
+                    <Node name="ThirdUnitBrain.cs" selected="True" />
+                  </Node>
                 </Node>
               </Node>
             </Node>

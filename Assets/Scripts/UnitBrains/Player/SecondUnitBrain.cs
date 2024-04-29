@@ -41,12 +41,16 @@ namespace UnitBrains.Player
 
         public override Vector2Int GetNextStep()
         {
-            List<Vector2Int> target = Vector2Int.zero;
-            if (_currentTargets.Count > 0) target = _currentTargets[0];
-            else target = unit.Pos;
-            if (IsTargetInRange(target)) return unit.Pos;
-            else return target;
+            Vector2Int target = Vector2Int.zero; 
+            if (_currentTargets.Count > 0)
+                target = _currentTargets[0]; 
+            else
+                target = unit.Pos; 
 
+            if (IsTargetInRange(target))
+                return unit.Pos;
+            else
+                return target; 
         }
 
         protected List<Vector2Int> GetAllTargets()

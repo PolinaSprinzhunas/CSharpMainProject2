@@ -1,15 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Model;
 using Model.Runtime.Projectiles;
+using Model.Runtime.ReadOnly;
+using UnitBrains.Pathfinding;
 using UnityEngine;
+using Utilities;
+using Unit = Model.Runtime.Unit;
 
 namespace UnitBrains.Player
 {
     public class ThirdUnitBrain : DefaultPlayerUnitBrain
     {
-     
         public override string TargetUnitName => "Ironclad Behemoth";
+
         private enum UnitAction
         {
             None,
@@ -20,6 +24,8 @@ namespace UnitBrains.Player
         private UnitAction currentAction = UnitAction.None;
         private float lastActionTime;
         private float actionDelay = 1f;
+        private List<Vector2Int> _currentTargets = new List<Vector2Int>();
+
 
         public void StartMove()
         {
@@ -39,26 +45,33 @@ namespace UnitBrains.Player
             }
         }
 
-        protected override List<Vector2Int> SelectTargets()
+        public override Vector2Int GetNextStep()
         {
-            var targets = base.SelectTargets();
-            if (targets.Count > 1)
-                targets.RemoveAt(1);
-            return targets;
-        }
+            Vector2Int targetPosition;
 
-        protected override List<Vector2Int> GetNextStep()
-        {
-            if (HasTargetsInRange())
-                return new List<Vector2Int> { unit.Pos };
-            else
+            if (currentAction == UnitAction.Moving)
             {
-                var target = runtimeModel.RoMap.Bases[IsPlayerUnitBrain ? RuntimeModel.BotPlayerId : RuntimeModel.PlayerId];
-                return new List<Vector2Int> { CalcNextStepTowards(target) };
+                if (_currentTargets.Count > 0)
+                    targetPosition = _currentTargets[0];
+                else
+                    targetPosition = unit.Pos;
+
+                if (IsTargetInRange(targetPosition))
+                    return unit.Pos;
+                else
+                    return targetPosition;
             }
+            else if (currentAction == UnitAction.Attacking)
+            {
+                return unit.Pos;
+            }
+
+            return Vector2Int.zero;
         }
     }
 }
+    
+
 
 
 
